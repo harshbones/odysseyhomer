@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button, Snackbar } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [info, setInfo] = useState({
@@ -59,8 +60,10 @@ const Signup = () => {
         onChange={updateForm}
       />
       <Button variant="contained" color="primary" type="submit" value="Submit">
-        Submit
+        Sign Up
       </Button>
+
+      <Link to="/signin">Sign in</Link>
       <Snackbar>{flash.flash}</Snackbar>
     </form>
   );
