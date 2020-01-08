@@ -1,3 +1,4 @@
+// REQUIRED LIBRARIES
 const http = require("http");
 const path = require("path");
 const express = require("express");
@@ -6,26 +7,26 @@ const morgan = require("morgan");
 const app = express();
 const authRouter = require("./routes/auth/auth");
 
-// j'implémente la partie API
+// API IMPLANT
 app.get("/", (req, res) => {
   res.send("youhou");
 });
-
-app.use("/auth", authRouter);
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
-/// dans le cas d'une route non trouvée, je retourne le code 404 'Not Found'
+app.use("/auth", authRouter);
+
+/// 404 NOT FOUND
 app.use(function(req, res, next) {
   var err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
 
-//je lance le serveur node
+// NODE LAUNCH
 let server = app.listen(process.env.PORT || 3000, function() {
   console.log("Listening on port " + server.address().port);
 });
