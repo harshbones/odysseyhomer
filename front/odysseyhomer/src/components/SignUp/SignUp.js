@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { TextField, Button, Snackbar } from "@material-ui/core";
 
 const Signup = () => {
   const [info, setInfo] = useState({
@@ -32,17 +33,36 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <h1>{JSON.stringify(info, 1, 1)}</h1>
-      <form className="form" onSubmit={submitForm}>
-        <input type="text" name="name" onChange={updateForm} />
-        <input type="text" name="lastname" onChange={updateForm} />
-        <input type="email" name="email" onChange={updateForm} />
-        <input type="password" name="password" onChange={updateForm} />
-        <input type="submit" value="Submit" />
-        <h2>{flash.flash}</h2>
-      </form>
-    </div>
+    <form className="form" onSubmit={submitForm}>
+      <TextField
+        id="standard-basic"
+        type="text"
+        name="name"
+        onChange={updateForm}
+      />
+      <TextField
+        id="standard-basic"
+        type="text"
+        name="lastname"
+        onChange={updateForm}
+      />
+      <TextField
+        id="standard-basic"
+        type="email"
+        name="email"
+        onChange={updateForm}
+      />
+      <TextField
+        id="standard-basic"
+        type="password"
+        name="password"
+        onChange={updateForm}
+      />
+      <Button variant="contained" color="primary" type="submit" value="Submit">
+        Submit
+      </Button>
+      <Snackbar>{flash.flash}</Snackbar>
+    </form>
   );
 };
 
