@@ -8,6 +8,8 @@ const Signup = () => {
     lastname: "Sacquet"
   });
 
+  const [flash, setFlash] = useState({ flash: "" });
+
   const updateForm = e => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -15,6 +17,18 @@ const Signup = () => {
   const submitForm = e => {
     e.preventDefault();
     console.log(info);
+    fetch("/auth/signup", {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify(info)
+    })
+      .then(res => res.json())
+      .then(
+        res => setFlash({ flash: res.flash }),
+        err => setFlash({ flash: err.flash })
+      );
   };
 
   return (
@@ -26,6 +40,7 @@ const Signup = () => {
         <input type="email" name="email" onChange={updateForm} />
         <input type="password" name="password" onChange={updateForm} />
         <input type="submit" value="Submit" />
+        <h2>{flash.flash}</h2>
       </form>
     </div>
   );
