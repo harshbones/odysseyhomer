@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const app = express();
 const authRouter = require("./routes/auth/auth");
+const passport = require("passport");
 
 // API IMPLANT
 app.get("/", (req, res) => {
@@ -18,6 +19,12 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
 app.use("/auth", authRouter);
+app.get("/profile", passport.authenticate("jwt", { session: false }), function(
+  req,
+  res
+) {
+  res.send(req.user);
+});
 
 /// 404 NOT FOUND
 app.use(function(req, res, next) {
